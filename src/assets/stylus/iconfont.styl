@@ -1,0 +1,27 @@
+/*iconfont字体引入*/
+@import '~@/assets/stylus/border1px.styl'
+@font-face          
+    font-family 'iconfont-nav';
+    src url('~@/assets/iconfont/iconfont.woff') format('woff'),
+          url('~@/assets/iconfont/iconfont.ttf') format('truetype')             
+
+.van-icon
+    font-family: 'iconfont-nav'
+    display: block
+    text-align: center
+    margin-bottom: .05rem
+
+.van-icon-movies::before 
+    content: '\e679'
+.van-icon-theaters::before 
+    content: '\e8c7'
+.van-icon-profile::before 
+    content: '\e60d'
+    
+
+.iconfont-nav 
+    font-family: "iconfont-nav" !important
+    font-size: 16px
+    font-style: normal
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale

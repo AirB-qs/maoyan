@@ -1,0 +1,33 @@
+
+border1px(width=1px,color=#ccc,radius=0,style=solid)   //设置1px线
+  position relative
+  
+  &::after
+    content: ''
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+    border-width: width
+    border-style: style
+    border-color: color
+    pointer-events: none //防止该伪类对事件相应产生遮挡
+    @media(-webkit-max-device-pixel-ratio: 1.5)
+      width: 100%
+      height: 100%
+      border-radius radius
+      transform scale(1)
+    @media (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49)
+      width: 200%
+      height: 200%
+      border-radius radius*2
+      transform scale(0.5)
+    @media(-webkit-min-device-pixel-ratio: 2.49)
+      width: 300%
+      height: 300%
+      border-radius radius*3
+      transform scale(0.33333333)
+    transform-origin: 0 0
+      
+     
