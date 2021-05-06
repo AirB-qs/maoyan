@@ -11,7 +11,7 @@
       </section>
       <section>
           <van-index-anchor index="热门" class="color">热门城市</van-index-anchor>
-          <van-cell title="上海" @click="pickCity(ci.name)"/>
+          <van-cell title="上海" @click="pickCity(ci.name,ci.id)"/>
       </section>
       <section>
         <template v-for="(cities, key) in list" >

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>猫眼电影</header>
+    <header>{{topic}}</header>
     <router-view></router-view>
     
     <van-tabbar v-model="active" active-color="#cd4c42" inactive-color="#666" route>
@@ -49,11 +49,22 @@
   export default {
     data() {
       return {
-        active:0
+        active:0,
+        topic:''
       };
     },
-    props:{
-
+    watch:{
+      $route:{
+        handler(route){
+          if(route.name==='intheaters') this.topic='猫眼电影';
+          if(route.name==='theaters') this.topic='影院';
+          if(route.name==='profile') this.topic='我的';
+        },
+        immediate:true
+      }
+    },
+    mounted(){
+      console.log(this.$route);
     }
   };
 </script>
