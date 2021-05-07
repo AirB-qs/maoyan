@@ -42,13 +42,12 @@ export default {
     cityid:state=>state.ci
   }),
   mounted(){
-    console.log(this.cityid);
   },
   methods:{
     //定义方法，获取所需要的影院信息
     async request(){
       let result=await this.$http.get({url:'/hostproxy/mmcs/cinema/v1/select/cinemas.json',params:{
-        cityId:20,
+        cityId:this.cityid,
         limit:this.limit,
         offset:this.offset,
         channelId:40000

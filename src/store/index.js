@@ -9,14 +9,16 @@ export default new Vuex.Store({
     ci:20,
   },
   mutations: {
-    picker(state,val1,val2){
-      state.ct=val1;
-      state.ci=val2;
+    picker(state,arr){
+      state.ct=arr[0];
+      state.ci=arr[1];
+      console.log(state.ct);
+      console.log(state.ci);
     },
   },
   actions: {
-    picker({commit},val1,val2){
-      commit('picker',val1,val2)
+    picker({commit},arr){
+      commit('picker',arr)
     },
   },
   modules: {

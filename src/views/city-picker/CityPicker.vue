@@ -16,7 +16,7 @@
       <section>
         <template v-for="(cities, key) in list" >
           <van-index-anchor :index="key" class="color" :key="key">{{key}}</van-index-anchor>
-          <van-cell v-for="ci in cities" :title="ci.name" :key="ci.name" @click="pickCity(ci.name,ci.id)"/>
+          <van-cell v-for="ci in cities" :title="ci.name" :key="ci.name" @click="pickCity([ci.name,ci.id])"/>
         </template>
       </section>
       
@@ -42,18 +42,19 @@
     },
     computed:
       mapState({
-        city:state=>state.ct
+        city:state=>state.ct,
+        cityid:state=>state.ci
     }),
     async mounted(){
       let result = await this.$http.get({url:'/cities.json'})
       this.list = result.data.cities;
       this.indexList.push(...Object.keys(result.data.cities));
-      console.log(this.indexList);
+      console.log(this.list);
 
     },
     methods:{
-      pickCity(val1,val2){
-        this.pick(val1,val2)
+      pickCity(arr){
+        this.pick(arr)
         this.$router.back()
       },
       ...mapActions({
