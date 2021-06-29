@@ -22,7 +22,22 @@ import { Promise } from 'core-js'
                     reject(err)
                 })
             })
+        }
 
+        head({ url,params }){
+            return new Promise((resolve,reject)=>{
+                this.instance.head(url,
+                    {
+                        params
+                    }
+                )
+                .then((result)=>{
+                    resolve(result)
+                    })
+                .catch((err)=>{
+                    reject(err)
+                })
+            })
         }
     }
     

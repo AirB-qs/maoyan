@@ -16,7 +16,7 @@
       <section>
         <template v-for="(cities, key) in list" >
           <van-index-anchor :index="key" class="color" :key="key">{{key}}</van-index-anchor>
-          <van-cell v-for="ci in cities" :title="ci.name" :key="ci.name" @click="pickCity([ci.name,ci.id])"/>
+          <van-cell v-for="ci in cities" :title="ci.name" :key="ci.name" @click="pickCity(ci.name)"/>
         </template>
       </section>
       
@@ -45,18 +45,34 @@
         city:state=>state.ct,
         cityid:state=>state.ci
     }),
+    //用来制作地点选择地名
     async mounted(){
       let result = await this.$http.get({url:'/cities.json'})
       this.list = result.data.cities;
       this.indexList.push(...Object.keys(result.data.cities));
-      console.log(this.list);
-
+      this.ciId()
     },
     methods:{
-      pickCity(arr){
-        this.pick(arr)
-        this.$router.back()
+      //通过获取地名找对对应的正确id请求
+      async ciId(nm){
+        let result = await this.$http.get({
+          url:'/hostproxy/dianying/cities.json'
+        })
+        let list = result.data.cts;
+        //console.log(list);
+        for(let i=0;i<list.length;i++){
+          if(list[i].nm==nm) return list[i].id
+        }
       },
+      //利用地名获取id之间
+      async pickCity(nm){
+        let id= await this.ciId(nm);
+        await console.log(id);
+        let arr = await [nm,id]
+        await this.pick(arr)
+        await this.$router.back()
+      },
+      //用来调用store中index的方法
       ...mapActions({
         pick:'picker'
       })

@@ -1,8 +1,11 @@
 <template>
 <div class="movie-list">
       <most-expected :movie-list="movieList"></most-expected>
-      <div class="row"></div>
-      <movie-list :movie-list="movieList" ></movie-list> 
+      <ul>
+        <router-link tag="li" v-for="mv in movieList" :to="{name:'detail',params:{id:mv.id}}">
+            <movie-list :mv="mv"></movie-list>
+        </router-link> 
+      </ul>
 </div>
   
 

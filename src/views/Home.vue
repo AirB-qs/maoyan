@@ -59,6 +59,7 @@
           if(route.name==='intheaters') this.topic='猫眼电影';
           if(route.name==='theaters') this.topic='影院';
           if(route.name==='profile') this.topic='我的';
+          if(route.name==='detail') this.topic='影片详情'
         },
         immediate:true
       }

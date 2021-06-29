@@ -26,6 +26,8 @@ body {
   font-size: 0.14em;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  /*取消chrome浏览器最小字体限制*/
+  -webkit-text-size-adjust: none;
   font-family: PingFangSC-Regular, Hiragino Sans GB, sans-serif }/*sans-serif:设置手机默认字体*/
 
 ul,

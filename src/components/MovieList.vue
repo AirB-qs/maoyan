@@ -1,38 +1,36 @@
 <template>
-         <ul>
-            <li v-for="mv in movieList">
-                <div class="image">
-                    <img  :src="mv.img | img('192.270')" :alt="mv.nm">
-                </div>
-                <div >
-                    <span class="head">
-                        <h1>{{mv.nm}}
-                            <movie-version v-if="mv.ver" :ver="mv.ver" ></movie-version>
-                        </h1>
-                        
-                    </span>
+         <div :mv="mv" class="list">
+            <div class="image">
+                <img  :src="mv.img | img('192.270')" :alt="mv.nm">
+            </div>
+            <div >
+                <span class="head">
+                    <h1>{{mv.nm}}
+                        <movie-version v-if="mv.ver" :ver="mv.ver" ></movie-version>
+                    </h1>
                     
-                    <div class="content">
-                        <p>{{mv.cat}}</p>
-                        <p>{{mv.desc}}</p>
-                        <p>{{mv.showInfo}}</p>
-                    </div>
-                    
+                </span>
+                
+                <div class="content">
+                    <p>{{mv.cat}}</p>
+                    <p>{{mv.desc}}</p>
+                    <p>{{mv.showInfo}}</p>
                 </div>
-                <div class = 'evaluate'>
-                    <span v-if="mv.showst===3">
-                        <b>{{mv.sc}}</b>
-                        <b>分</b>
-                    </span>
-                    <span v-else>
-                        <b>{{mv.wish}}</b><b>人想看</b>
-                    </span>
-                  
-                        
-                    <movie-button :mv="mv"></movie-button>
-                </div>
-            </li>
-        </ul>
+                
+            </div>
+            <div class = 'evaluate'>
+                <span v-if="mv.showst===3">
+                    <b>{{mv.sc}}</b>
+                    <b>分</b>
+                </span>
+                <span v-else>
+                    <b>{{mv.wish}}</b><b>人想看</b>
+                </span>
+                
+                
+                <movie-button :mv="mv" ></movie-button>
+            </div>
+        </div>
        
 
 </template>
@@ -46,10 +44,10 @@ import MovieVersion from '@/components/MovieVersion.vue'
 
 export default {
    props:{
-       movieList:{
-           type:Array,
+        mv:{
+           type:Object,
            required:true
-       }
+        }
    },
     components:{
         MovieButton,
@@ -61,8 +59,7 @@ export default {
 <style lang="stylus" scoped>
 @import '../assets/stylus/border1px.styl'
 @import '../assets/stylus/ellipsis.styl'
-    ul
-        li
+        .list
             width 100%
             height 1.1rem
             display flex 

@@ -6,6 +6,7 @@ module.exports = {
             .set('@',path.join(__dirname,'/src'))
     },
     devServer: {
+      host:'localhost',
       proxy: {
         '/mmdb': {
           target: 'https://wx.maoyan.com',
@@ -21,7 +22,7 @@ module.exports = {
         '/hostproxy':{
           target: 'https://m.maoyan.com',
           changeOrigin: true
-        }
-      }
-    }
+        },
+      },
+    },
   }

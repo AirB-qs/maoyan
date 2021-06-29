@@ -7,6 +7,7 @@ import InTheaters from '@/views/home/movies/InTheaters.vue'
 import ComingSoon from '@/views/home/movies/ComingSoon.vue'
 import Theaters from '@/views/home/theaters/Theaters.vue'
 import Profile from '@/views/home/profile/profile.vue'
+import Detail from '@/views/home/movies/Detail.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -29,13 +30,13 @@ const routes = [
           {
             path:'intheaters',
             name:'intheaters',
-            component:InTheaters
+            component:InTheaters,
           },
           {
             path:'comingsoon',
             name:'comingsoon',
             component:ComingSoon
-          }
+          },
         ]
       },
       {
@@ -48,6 +49,7 @@ const routes = [
         name: 'profile',
         component: Profile
       },
+      
     ]
   },
   {
@@ -55,7 +57,11 @@ const routes = [
     name: 'citypicker',
     component: CityPicker
   },
-  
+  {
+    path:'/detail/:id',
+    name:'detail',
+    component:Detail
+  }
   
 ]
 
