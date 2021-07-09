@@ -47,7 +47,7 @@ export default({
             }
             })
             this.mbox=result.data.mbox;
-            console.log(this.mbox);
+            //console.log(this.mbox);
         },
     }
 })
@@ -58,8 +58,7 @@ section
     background-color white
     width 100%
     height 1.2rem
-    padding-top .1rem
-    
+    //分隔条  
     &::before
         display block
         padding-left -0.1rem

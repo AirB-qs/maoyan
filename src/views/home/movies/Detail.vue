@@ -2,7 +2,7 @@
     <div>
         <header>
             <div>
-                <span onclick="window.history.go(-1)">back</span>
+                <span v-on:click="GoBack()">back</span>
                 <h2>{{this.topic}}</h2>
             </div> 
         </header>
@@ -45,7 +45,7 @@
             <section class="movie_actor">
                 <h2>演职人员</h2>
                 <ul v-if="actorList.length">
-                    <li v-for="item in actorList" :key="item.cnm">
+                    <li v-for="item in actorList">
                         <img  :src="item.avatar | img('128.170')" alt="">
                         <p class="name">{{item.cnm}}</p>
                         <p class="role">{{item.desc}}</p>
@@ -55,6 +55,7 @@
             <earnings></earnings>
             <comments></comments>
         </main>
+        <footer>优惠购票</footer>
     </div>
 </template>
 
@@ -87,7 +88,7 @@ export default({
         this.loadActor();
     },
     mounted(){
-        
+        console.log(this.$route.hash);
     },
     methods:{
         //获取电影详情页数据的方法
@@ -111,6 +112,9 @@ export default({
         },
         clickOn(){
             this.click=!this.click
+        },
+        GoBack(){
+            this.$router.back()
         }
     }
 })
@@ -256,12 +260,10 @@ div
     .movie_actor
         background-color white
         width 100%
-        height 1.8rem
-        padding-top .1rem
-        
+        height 2rem
+        //两个section之间的分隔条
         &::before
             display block
-            padding-left -0.1rem
             content ""
             background-color #eee
             width 100%
@@ -292,4 +294,16 @@ div
                     color #999
                     line-height .15rem
 
+</style>
+<style lang="stylus" scoped>
+    footer 
+        position fixed
+        bottom 0
+        background-color red
+        z-index 2
+        color white
+        line-height .5rem
+        font-size .18rem
+        width 100%
+        text-align center
 </style>

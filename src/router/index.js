@@ -20,47 +20,84 @@ const routes = [
         redirect: 'movies'
       },
       {
+        name: 'movies',
         path: 'movies',
         component: Movies,
         children:[
           {
             path:'',
-            redirect:'intheaters'
+            redirect:'intheaters',
           },
           {
             path:'intheaters',
             name:'intheaters',
             component:InTheaters,
+            meta:{
+              keepAlive:true,
+              from:'',
+              x:0,
+              y:0,
+              scroll:1000,
+              limit:12,
+              offset:0
+            },
+            beforeEnter:(to,from,next)=>{
+              if(from.name=='detail'){
+                to.meta.from=from.name;
+              }
+              //console.log(to);
+              //console.log(from);
+              next()
+            },
+
           },
           {
             path:'comingsoon',
             name:'comingsoon',
-            component:ComingSoon
+            component:ComingSoon,
+            meta:{
+              keepAlive:true,
+              from:'',
+              x:0,
+              y:0
+            },
+            beforeEnter:(to,from,next)=>{
+              if(from.name=='detail'){
+                to.meta.from=from.name;
+              }
+              //console.log(to);
+              //console.log(from);
+              next()
+            }
           },
-        ]
+        ],
       },
       {
         path: 'theaters',
         name: 'theaters',
-        component: Theaters
+        component: Theaters,
       },
       {
         path: 'profile',
         name: 'profile',
-        component: Profile
+        component: Profile,
       },
       
-    ]
+    ],
+ /*  meta:{
+    keepAlive:true
+  } */
   },
   {
     path: '/citypicker',
     name: 'citypicker',
-    component: CityPicker
+    component: CityPicker,
+
   },
   {
     path:'/detail/:id',
     name:'detail',
-    component:Detail
+    component:Detail,
   }
   
 ]
@@ -68,7 +105,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 export default router

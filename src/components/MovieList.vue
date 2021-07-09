@@ -1,4 +1,5 @@
 <template>
+        
          <div :mv="mv" class="list">
             <div class="image">
                 <img  :src="mv.img | img('192.270')" :alt="mv.nm">
@@ -53,6 +54,9 @@ export default {
         MovieButton,
         MovieVersion,
     },
+    activated(){
+        //console.log(3);
+    }
     
 }
 </script>

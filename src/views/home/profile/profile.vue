@@ -1,5 +1,7 @@
 <template>
-  <div>profile</div>
+  <div>profile
+    <input type="text">
+  </div>
 </template>
 
 <script>

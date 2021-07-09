@@ -1,8 +1,11 @@
 <template>
   <div>
     <header>{{topic}}</header>
-    <router-view></router-view>
-    
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+        
+ 
     <van-tabbar v-model="active" active-color="#cd4c42" inactive-color="#666" route>
       <van-tabbar-item to="/movies/intheaters">
         <template>
@@ -65,7 +68,7 @@
       }
     },
     mounted(){
-      console.log(this.$route);
+      //console.log(this.$route);
     }
   };
 </script>
@@ -74,6 +77,7 @@
  @import '~@/assets/stylus/iconfont.styl'
 
   header 
+    z-index 2
     text-align center
     background #cd4c42
     color #fff

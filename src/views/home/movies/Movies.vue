@@ -13,7 +13,7 @@
           <li class = "yo-ico">&#xf067;</li>
         </ul>
       </nav>
-      <section class="movie-list">
+      <section id="list" class="movie-list">
         <van-skeleton 
         avatar 
         avatar-shape="square"
@@ -33,7 +33,11 @@
           @load="onLoad"
           :immediate-check="false"
         >
+        
+        <!-- <keep-alive> -->
           <router-view :movie-list="movieList"></router-view>
+        <!-- </keep-alive> -->
+          
         </van-list>
       </van-pull-refresh>
       </section>
@@ -57,35 +61,34 @@ export default({
         refreshing:false,
         load:true,
         url:'',
-        url1:''
+        url1:'',
     }
+  },
+  activated(){
+    //在激活keep-alive时触发，将位置定位到上次浏览的位置
+    let list=document.getElementById('list');
+    list.scrollTo(0,this.$route.meta.scroll)
+    //console.log(window.pageYOffset);
+    //console.log(this.$router);
+  },
+  deactivated(){
+
   },
   created(){
     this.offset = 0;
     this.limit=12;
     this.hasMore=false;
+/*     this.refreshing = true;
+    this.movieList=[];
+    this.onRefresh();
+    console.log(1); */
   },
-
-  async mounted(){
-  /* let result = await axios.get('/mmdb/movie/v2/list/hot.json',{
-    params:{
-      limit: 12,
-      offset: 0,
-      ct: '广州'
-    }
-  })
-  console.log(result); */
-  
-  /* let result = await this.$http.get({url:'/movie/v2/list/hot.json',
-    params:{
-      limit: 12,
-      offset: 0,
-      ct: '广州'
-    }
-  })
-  this.movieList = result.data.data.hot */
-    console.log(this.city);
-    this.load = false
+   mounted(){
+     //用来监听intheaters和comingsoon组件滚动事件
+      let list=document.getElementById('list')
+      list.addEventListener('scroll',this.scroll(list))
+      
+      this.load = false
   },
   computed:mapState({
     city:state=>state.ct,
@@ -130,6 +133,20 @@ export default({
         this.onLoad();
     
       // 清空列表数据
+    },
+    //监听滚动事件触发的函数，同时加入防抖
+    scroll(e){
+      let flag=true;
+      return ()=>{
+          if(!flag) return;
+          flag=false
+          setTimeout(()=>{
+            this.$route.meta.scroll=e.scrollTop;
+            this.$route.meta.list=this.movieList
+            console.log(this.$route.meta.scroll);
+            flag=true
+          },500)
+      }
     }
   },
   watch:{
@@ -138,12 +155,22 @@ export default({
         if(route.name==='intheaters'){
           this.url = '/mmdb/movie/v2/list/hot.json';
           this.limit = 12;
-        }else{
+        }else if(route.name==='comingsoon'){
           this.url = '/mmdb/movie/v1/list/wish/order/coming.json';
           this.limit = 30;
         }
-        this.refreshing = true;
-        this.onRefresh();
+        console.log(route);
+        if(route.meta.from!='detail'||this.movieList.length==0){
+          this.refreshing = true;
+          this.onRefresh();
+        }else{
+          //当从detail返回时，将值赋给movielist
+          this.movieList = route.meta.list
+          /* let list=document.getElementById('list')
+          list.scrollTo(0,route.meta.scroll) */
+          //list.scrollBy(0,1000)
+        }
+        //console.log(1);
         console.log(this.movieList);
       },
       immediate:true

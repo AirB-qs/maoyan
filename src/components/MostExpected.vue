@@ -2,11 +2,11 @@
   <div>
     <h1>近期最受欢迎</h1>
     <ul>
-        <li v-for="mov of movieList" :key="mov.id" >
+        <li v-for="mov of movieList" >
             <img :src="mov.img | img('192.270')"  :alt="mov.nm">
             <h2>{{mov.nm}}</h2>
             <p>{{mov.wish}}人想看</p>
-            <p>{{slice(mov.comingTitle)}}</p>
+            <p v-if="mov.length>3">{{slice(mov.comingTitle)}}</p>
         </li>
     </ul>
   </div>
